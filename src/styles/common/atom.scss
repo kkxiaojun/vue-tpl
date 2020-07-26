@@ -1,0 +1,59 @@
+.txt-primary{
+  color: $color-primary;
+}
+
+.txt-success{
+  color: $color-success;
+}
+
+.txt-warning{
+  color: $color-warning;
+}
+
+.txt-danger{
+  color: $color-danger;
+}
+
+.txt-info{
+  color: $color-info;
+}
+
+.inline-block{
+  display: inline-block;
+}
+.w100{
+  width: 100px;
+}
+.w200{
+  width: 200px;
+}
+.w300{
+  width: 300px;
+}
+.w400{
+  width: 400px;
+}
+
+
+.clearfix {
+  @include clearfix;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+.pointer-init{
+  pointer-events: initial !important;
+}

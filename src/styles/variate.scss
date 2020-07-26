@@ -1,0 +1,23 @@
+@import "./element-ui/element-variables";
+
+$color-primary: $--color-primary;
+$color-success: $--color-success;
+$color-warning: $--color-warning;
+$color-danger: $--color-danger;
+$color-info: $--color-info;
+
+// 文本溢出省略显示
+@mixin text-ellipsis () {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// 多行文本溢出省略显示
+@mixin text-ellipsis-multi() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
