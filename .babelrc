@@ -1,8 +1,21 @@
 {
-  "presets": ["@babel/preset-env", "@vue/babel-preset-jsx"],
+  "presets": [
+    "@babel/preset-env",
+    "@vue/babel-preset-jsx"
+  ],
   "plugins": [
     "@babel/plugin-transform-runtime",
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    "@babel/plugin-proposal-class-properties"
+    "@babel/plugin-syntax-dynamic-import",
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    ["import", {
+      "libraryName": "vant",
+      "libraryDirectory": "es",
+      "style": true
+    }]
   ]
 }

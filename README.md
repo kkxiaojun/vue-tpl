@@ -4,23 +4,15 @@
 ```
 npm i
 或者
+cnpm i
+或者
 yarn install
-```
-
-代码提交：会对提交的文案进行规范化，可以使用以下命令提交或者通过其他工具提交，前提是文案描述要符合规范
-
-https://open.leancloud.cn/git-commit-message/
-```
-npm run commitAll  // 提交所有，会自动add .再提交
-npm run commit   // 可以自己手动add需要的文件，再提交
 ```
 
 本地开发
 ```
+npm run build-dll-dev 安装DLL
 npm run dev
-
-// 可通过env参数切换不同的环境配置
-npm run dev -- --env=test
 ```
 打包
 ```
@@ -30,13 +22,63 @@ build-test 测试环境
 build-grey 灰度测试
 build-pre 预发布
 ```
+文件目录
+```
+ '|-- OA_SYSTEM_WEB',
+  '    |-- .babelrc',  babel配置
+  '    |-- .browserslistrc', CSS浏览器兼容
+  '    |-- .gitignore', git忽略名单
+  '    |-- customize_prompt.js', 模板自定义（用于脚手架生成时候）
+  '    |-- package.json', 
+  '    |-- postcss.config.js', postCss配置
+  '    |-- README.md', 文档说明
+  '    |-- config', 配置文件
+  '    |   |-- env.js', 不同环境全局变量配置
+  '    |   |-- index.js', webpack自定义配置文件
+  '    |-- dist', 打包后diam
+  '    |-- dll', DLL加速包，默认没有。需要npm run build-dll 或者npm run build-dll-dev
+  '    |   |-- ui.dll.js',
+  '    |   |-- ui.manifest.json',
+  '    |   |-- vendor.dll.js',
+  '    |   |-- vendor.manifest.json',
+  '    |   |-- vue.dll.js',
+  '    |   |-- vue.manifest.json',
+  '    |-- src', 主要入口
+
+  '    |-- webpack',
+  '        |-- devserver.js', webpack-dev-server 入口
+  '        |-- dllConfig.js', DLL打包配置
+  '        |-- index.js', webpack进程入口
+  '        |-- webpack.base.js', 公用webpack配置
+  '        |-- webpack.local.js', 本地开发webpack配置
+  '        |-- webpack.prod.js', 打包webpack配置
+  '        |-- common', webpack公用模块
+  '            |-- const.js', 公用变量
+  '            |-- log.js', 打印日志
+  '            |-- utils.js', 工具函数
+```
 
 ## 注意事项：
 - 尽量提高代码的复用性
 - 全局数据放到store里
-- 重复性的组件可抽离到src/components
-- 重复性的模块可抽离到src/modules
-- 重复性的util可抽离到src/utils
+- 重复性的可抽离到src/components
 - 单个页面的直接在views/xxx/components
+
+## 使用注意
+DLL使用时候可能有以下问题
+1. vue 调试工具无法使用
+2. 第三方库使用出现问题  
+可以在config/index 里面的isDll设置为false。然后把文件夹dll给删掉。
+
+如果有比较大的第三方库，可以为其配置DLL
+
+在config/index里面配置DllConfig
+
+## BUG:  
+[x] vue热跟新会刷新页面   
+[x] DLL打包饿了么UI框架后，使用会出现问题   
+[x] 无法自动检测是否有DLL  
+[x] 代码分割失效，全部文件打包一起  
+[x] 打包后第三方UI框架资源丢失
 
 

@@ -1,0 +1,8 @@
+{
+    "hooks": {
+      "pre-commit": "npx lint-staged",
+      "commit-msg": "validate-commit-msg",
+    }
+}
+
+

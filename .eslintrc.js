@@ -1,57 +1,37 @@
-var path = require('path');
+// https://eslint.org/docs/user-guide/configuring
 module.exports = {
-  parser: 'vue-eslint-parser',
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-      "modules": true,
-    }
-  },
   extends: [
-    '@i61/recommended',
-    'plugin:vue/recommended',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:vue/strongly-recommended',
+    'plugin:prettier/recommended'
   ],
-  plugins: [
-    'vue',
-    '@typescript-eslint'
-  ],
-  globals: {
-    'use': 'error',
-    'window': 'error',
-    'document': true,
-    'process': true,
-    'module': true,
-    '__dirname': true,
-    'require': true
-  },
+  'parserOptions':
+    {
+      "parser": "babel-eslint",
+      "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": true
+      }
+    },
+  // add your custom rules here
   rules: {
-    '@typescript-eslint/camelcase': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/indent': ['error', 2],
-    '@typescript-eslint/no-empty-interface': 'off',
-    '@typescript-eslint/array-type': 'off',
-    '@typescript-eslint/explicit-member-accessibility': 0,
-    '@typescript-eslint/no-unused-vars': 0,
-    '@typescript-eslint/no-var-requires': 0,
-    'vue/max-attributes-per-line': [2, {
-      'singleline': 10,
-      'multiline': {
-        'max': 1,
-        'allowFirstLine': false
-      }
-    }],
-    'vue/name-property-casing': ['error', 'PascalCase'],
-  },
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: path.join(__dirname, './compile/webpack.dev.js')
-      }
-    }
+    // ...other codes
+    'prettier/prettier': [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "none",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": true
+      }],
+    'vue/max-attributes-per-line': false,
+    'vue/html-indent': false,
+    'vue/require-prop-types': false,
+    'vue/html-self-closing': false,
+    'vue/html-closing-bracket-newline': false,
+    'vue/no-template-shadow': false,
+    'vue/singleline-html-element-content-newline': false,
+    'vue/require-prop-type-constructor': false,
+    'vue/html-closing-bracket-spacing': false,
+    'quotes': [1, 'single'],
   }
-};
+}

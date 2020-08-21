@@ -1,27 +1,21 @@
 {
+  "name": "vue",
+  "version": "1.0.0",
+  "description": "vue模板",
+  "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV='development' PROCESS_ENV='LOCAL' i61-webpack run dev",
-    "build-prod": "cross-env NODE_ENV='production' PROCESS_ENV='PROD' i61-webpack run build",
-    "build-dev": "cross-env NODE_ENV='production' PROCESS_ENV='DEV' i61-webpack run build",
-    "build-test": "cross-env NODE_ENV='production' PROCESS_ENV='TEST' i61-webpack run build",
-    "build-grey": "cross-env NODE_ENV='production' PROCESS_ENV='GREY' i61-webpack run build",
-    "build-pre": "cross-env NODE_ENV='production' PROCESS_ENV='PRE' i61-webpack run build",
+    "build-dll-dev": "cross-env NODE_ENV=development PROCESS_ENV='LOCAL' webpack --config webpack/dllConfig.js",
+    "build-dll": "cross-env NODE_ENV=production PROCESS_ENV='PROD' webpack --config webpack/dllConfig.js",
+    "dev": "cross-env PROCESS_ENV='LOCAL' NODE_ENV=development node ./webpack/devserver.js",
+    "build-prod": "cross-env PROCESS_ENV='PROD' NODE_ENV=production node ./webpack/index.js",
+    "build-dev": "cross-env PROCESS_ENV='DEV' NODE_ENV=production node ./webpack/index.js",
+    "build-test": "cross-env PROCESS_ENV='TEST' NODE_ENV=production node ./webpack/index.js",
+    "build-grey": "cross-env PROCESS_ENV='GREY' NODE_ENV=production node ./webpack/index.js",
+    "build-pre": "cross-env PROCESS_ENV='PRE' NODE_ENV=production node ./webpack/index.js",
     "commitAll": "git add . && git-cz ",
     "commit": "git-cz ",
     "format": "prettier --write \"src/**/*.js\" \"src/**/*.vue\" \"src/**/*.jsx\"",
-    "eslint": "eslint --fix --ext .vue,.js src/"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged",
-      "commit-msg": "validate-commit-msg"
-    }
-  },
-  "lint-staged": {
-    "*.{js,vue,ts,tsx,jsx}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "eslint": "eslint --fix --ext .vue,.js src/ pages/"
   },
   "repository": {
     "type": "git",
@@ -38,13 +32,15 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-stage-2": "^7.0.0",
     "@babel/runtime": "^7.4.5",
-    "@i61/eslint-config-recommended": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "@vue/babel-preset-jsx": "^1.0.0",
     "add-asset-html-webpack-plugin": "^3.1.3",
     "autoprefixer": "^9.6.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
+    "babel-loader": "^7.1.5",
     "babel-plugin-import": "^1.12.2",
     "cache-loader": "^4.1.0",
     "chalk": "^2.4.2",
@@ -52,33 +48,41 @@
     "commitizen": "^4.0.3",
     "copy-webpack-plugin": "^5.0.3",
     "cross-env": "^5.2.0",
+    "css-loader": "^3.0.0",
+    "cssnano": "^4.1.10",
     "cz-conventional-changelog": "^3.0.2",
     "element-theme-chalk": "^2.10.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^6.1.0",
-    "eslint-config-standard": "^14.1.1",
     "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-loader": "^2.1.2",
     "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-vue": "^5.2.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^4.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "glob": "^7.1.4",
     "glob-all": "^3.1.0",
+    "happypack": "^5.0.1",
+    "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.5",
+    "image-loader": "^0.0.1",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
     "lint-staged": "^9.2.5",
     "log-symbols": "^3.0.0",
     "micromatch": "^4.0.2",
     "mini-css-extract-plugin": "^0.7.0",
+    "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "ora": "^3.4.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
+    "postcss-pxtorem": "^4.0.1",
     "prettier": "^1.18.2",
     "prettier-eslint-cli": "^5.0.0",
     "progress-bar-webpack-plugin": "^1.12.1",
@@ -87,15 +91,23 @@
     "qs": "^6.7.0",
     "regenerator-runtime": "^0.13.2",
     "rimraf": "^2.6.3",
+    "sass-loader": "^7.1.0",
+    "sass-resources-loader": "^2.0.1",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^6.0.2",
+    "typescript": "^3.5.2",
     "url-loader": "^2.0.1",
     "validate-commit-msg": "^2.14.0",
+    "vue-loader": "^15.7.0",
     "vue-router": "^3.0.7",
-    "vue-style-loader": "^4.1.2"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.34.0",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.1",
+    "webpack-merge": "^4.2.1",
+    "webpack-parallel-uglify-plugin": "^1.1.1"
   },
   "keywords": [],
   "author": "",
@@ -105,17 +117,22 @@
   },
   "homepage": "https://github.com/LienJack/vue-template-cli#readme",
   "dependencies": {
-    "@i61/common-webpack": "^1.0.4",
     "@babel/polyfill": "^7.4.4",
     "@babel/runtime-corejs2": "^7.5.4",
     "axios": "^0.19.0",
+    "cache-loader": "^4.1.0",
     "core-js": "^2.6.9",
     "element-ui": "^2.12.0",
-    "js-cookie": "^2.2.0",
     "throttle-debounce": "1.1.0",
-    "vue-property-decorator": "^8.4.1",
+    "js-cookie": "^2.2.0",
+    "lib-flexible": "^0.3.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7",
     "vuex": "^3.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
